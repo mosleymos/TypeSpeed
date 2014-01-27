@@ -2,8 +2,10 @@
 #=SYNOPSIS
 #=DATE
 #=LICENCE
-
+#--rdoc a faire
 #variables
+
+require "pry"
 
 time_char=2  #duree de l'affichage de chaque charactère, lettre ou bit
 time_type=10 #délai maximal avant la saisie d'une lettre
@@ -12,13 +14,13 @@ time_type=10 #délai maximal avant la saisie d'une lettre
 
 #Generation de 0 et 1 aleatoires
 def randomBits
-	return puts randomBit=rand(0..1)
+	randomBit=rand(0..1)
 end
 
 
 #Generation de lettre de l'alphabet aleatoire
 def randomLetters
-	return puts randomLetter=('a'..'z').to_a[rand(0...26)]
+	randomLetter=('a'..'z').to_a[rand(0...26)]
 end
 
 #choix aléatoire de l'affichage d'une lettre ou d'un bit (bit dans 80% des cas)
@@ -26,9 +28,9 @@ end
 def choice_random 
 choice_function = rand(0..10)
 	if choice_function >= 8
-		return randomLetters
+		randomLetters
 	else
-		return randomBits
+		randomBits
 	end
 end
 
@@ -43,7 +45,7 @@ def start
 end 
 
 # Affichage regles du jeu
-
+#--Pour le fun faire un dessin ascii
 def rules
 	puts "Type Speed est un jeu de réflexes :\n
 	tapez les lettres dès qu'elles apparaissent.\n 
@@ -54,6 +56,8 @@ end
 
 
 #Lancement du jeu - confirmation joueur
+#--Faire un debug au cas ou l'utilisateur rentre autre
+#--parametre que Y,y, N,n 
 def launch
 	puts "Voulez vous lancer la partie ? [Y/n]"
 	player_choice=gets.chomp
@@ -64,14 +68,46 @@ def launch
  	end
 end 
 
+
+#Ecran resultat
+
+def gameover
+	puts "T'as perdu!!!"
+end
+
+def victory
+	puts "Bien joué ;)"
+end
+
 # Ecran de jeu
 
 def main_game
 
 	(0..30).each { |x|
 		
-		if choice_random.is_a?(Integer)
-			break
+		a=choice_random
+		puts a
+			if a.kind_of?(Integer)
+		
+			else 
+				input_player=gets.chomp 
+
+				if input_player == a
+					
+				else
+					gameover
+			end
+		end
+		sleep(2.0) 
+	}
+end
+
+
+=begin	
+		a=choice_random
+		if a.is_a?(Integer)
+			binding.pry
+			resume
 		else 
 			input_player=gets.chomp 
 
@@ -81,12 +117,4 @@ def main_game
 				exit
 			end
 		end
-
-		delay 2.0
-	}
-end
-
-#Ecran resultat
-
-
-
+=end
