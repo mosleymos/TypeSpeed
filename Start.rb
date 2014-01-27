@@ -51,13 +51,13 @@ end
 
 #Generation de 0 et 1 aleatoires
 def randomBits
-	return randomBit=rand(0..1)
+	return puts randomBit=rand(0..1)
 end
 
 
 #Generation de lettre de l'alphabet aleatoire
 def randomLetters
-	return randomLetter=('a'..'z').to_a[rand(0...26)]
+	return puts randomLetter=('a'..'z').to_a[rand(0...26)]
 end
 
 
@@ -66,13 +66,18 @@ end
 def main_game
 
 	(0..30).each { |x|
-		choice_random
-		input_player=gets.chomp 
+		
+		if choice_random.is_a?(Integer)
 
-		if input_player == choice_random
-			resume
-		else
-			exit
+			break
+		else 
+			input_player=gets.chomp 
+
+			if input_player == choice_random
+				resume
+			else
+				exit
+			end
 		end
 
 		delay 2.0
