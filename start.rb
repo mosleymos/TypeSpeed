@@ -17,7 +17,7 @@ TIME_TYPE=2 #délai maximal avant la saisie d'une lettre
 
 #Generation de 0 et 1 aleatoires
 def randomBits
-	randomBit=rand(0..1)
+	rand(0..1)
 end
 
 
@@ -30,7 +30,7 @@ end
 
 def choice_random 
 choice_function = rand(0..10)
-	if choice_function >= 8
+	if choice_function >= 5
 		randomLetters
 	else
 		randomBits
@@ -85,52 +85,57 @@ def launch
 end 
 
 
-#Ecran resultat
-
-def gameover
-	puts "T'as perdu!!!"
-end
-
+#fonctions
 def victory
 	puts "Bien joué ;)"
 end
 
+#Ecran resultat
+
+def gameover
+		puts "T'as perdu!!!" 
+end
+
+
 # Ecran de jeu
+
+
+
+def is_binary?(a)
+  a.kind_of?(Integer)
+end
 
 def main_game
 
-	(0..30).each do |x|
+	(0..20).each do |x|
 		
-		a=choice_random
+		a = choice_random
+		badInput = false
 		puts a
-			if a.kind_of?(Integer)
-		
-			else
-				begin
-					Timeout::timeout(TIME_TYPE) do
 
-						input_player=gets.chomp 
-
-						if input_player == a
+		next if is_binary?(a)
+			
+		begin
+			Timeout::timeout(TIME_TYPE) do
+					input_player=gets.chomp 
+						if input_player==a
 							
 						else
+							badInput=true
 							gameover
-							break
 						end
-
-						end
-
-				rescue Timeout::Error
-						gameover
-						break
-				end
-
 			end
+		rescue Timeout::Error
+				break
+		end
+		
+		break if badInput==true
 
 		sleep(TIME_CHAR) 
 	end
 end
 
-# start 
-# rules
+start 
+rules
 launch
+main_game

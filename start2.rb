@@ -30,7 +30,7 @@ end
 
 def choice_random 
 choice_function = rand(0..10)
-	if choice_function >= 8
+	if choice_function >= 5
 		randomLetters
 	else
 		randomBits
@@ -85,52 +85,47 @@ def launch
 end 
 
 
-#Ecran resultat
-
-def gameover
-	puts "T'as perdu!!!"
-end
-
+#fonctions
 def victory
 	puts "Bien joué ;)"
 end
 
+#Ecran resultat
+
+def gameover
+		puts "T'as perdu!!!" 
+end
+
+
 # Ecran de jeu
 
 def main_game
+	i=20
+	while i<20 do
 
-	(0..30).each do |x|
-		
-		a=choice_random
-		puts a
-			if a.kind_of?(Integer)
-		
-			else
-				begin
-					Timeout::timeout(TIME_TYPE) do
-
-						input_player=gets.chomp 
-
-						if input_player == a
-							
-						else
-							gameover
-							break
-						end
-
-						end
-
-				rescue Timeout::Error
-						gameover
-						break
-				end
-
-			end
-
-		sleep(TIME_CHAR) 
+		begin
+			a=choice_random
+			#badInput=false
+			puts a
+			input_player=gets.chomp 
+								if input_player==a
+									
+								else
+									Timeout::timeout(TIME_TYPE)
+									break if input_player !=a
+								end
+			
+		rescue Timeout::Error
+			gameover
+		end
+		sleep(TIME_CHAR)
+		i+=1 
 	end
+	
+
 end
 
 # start 
 # rules
-launch
+# launch
+main_game
