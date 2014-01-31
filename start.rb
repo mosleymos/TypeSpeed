@@ -96,6 +96,18 @@ def gameover
 		puts "T'as perdu!!!" 
 end
 
+def continue 
+	# puts "souhaitez vous continuer ? Y/n"
+	# choice=gets.chomp
+	# if choice=="Y" || choice=="y"
+	# 	start
+	# else
+	# 	"Bye"
+	# 	close
+	# end
+
+end
+
 
 # Ecran de jeu
 
@@ -110,7 +122,6 @@ def main_game
 	(0..20).each do |x|
 		
 		a = choice_random
-		badInput = false
 		puts a
 
 		next if is_binary?(a)
@@ -121,15 +132,20 @@ def main_game
 						if input_player==a
 							
 						else
-							badInput=true
-							gameover
+							
+							puts "fin de jeu"
 						end
 			end
 		rescue Timeout::Error
-				break
+				gameover
+		#Break two scopes with this instruction
+				break 2
+				 
+
+				
 		end
 		
-		break if badInput==true
+		#break if badInput==true
 
 		sleep(TIME_CHAR) 
 	end
